@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+	<!--head of the html code-->
+	<head>
+		<title>REGISTRATION FORM</title>
+		<script type="text/javascript" >
+			function validateFirstName()
+			{
+				var fName=document.getElementById("firstName").value;
+				var res=/^[a-zA-Z\s]{5,20}$/;
+				if(res.test(fName))/*if first name is valid*/
+				{
+					document.getElementById("firstNamePrompt").style.color="green";
+					document.getElementById("firstNamePrompt").innerHTML="<strong>&#10004;</strong>";
+					return true;
+				}
+				else/*if first name is not valid*/
+				{
+					document.getElementById("firstNamePrompt").style.color="red";
+					document.getElementById("firstNamePrompt").innerHTML="<strong>&#10006;</strong>"
+					return false;
+				}
+			}
+			function validateLastName()
+			{
+				var lName=document.getElementById("lastName").value;
+				var res=/^[a-zA-Z\s]{5,20}$/;
+				if(res.test(lName))/*if last name is valid*/
+				{
+					document.getElementById("lastNamePrompt").style.color="green";
+					document.getElementById("lastNamePrompt").innerHTML="<strong>&#10004;</strong>";
+					return true;
+				}
+				else/*if last name is not valid*/
+				{
+					document.getElementById("lastNamePrompt").style.color="red";
+					document.getElementById("lastNamePrompt").innerHTML="<strong>&#10006;</strong>"
+					return false;
+				}
+			}
+			function validateEmail()
+			{
+				if(email.checkValidity())/*if email is valid*/
+				{
+					document.getElementById("emailPrompt").style.color="green";
+					document.getElementById("emailPrompt").innerHTML="<strong>&#10004;</strong>";
+					return true;
+				}
+				else/*if email is not valid*/
+				{
+					document.getElementById("emailPrompt").style.color="red";
+					document.getElementById("emailPrompt").innerHTML="<strong>&#10006;</strong>"
+					return false;
+				}
+			}
+			function validatePasswordMatch()
+			{
+				var res=/^[a-zA-Z]{1,20}$/;
+				var pass1=document.getElementById("password1").value;
+				var pass2=document.getElementById("password2").value;
+				if(res.test(pass1)&&res.test(pass2)&&pass1==pass2)
+				{
+					document.getElementById("passwordPrompt").style.color="green";
+					document.getElementById("passwordPrompt").innerHTML="<strong>&#10004;</strong>";
+					return true;
+				}
+				else/*if password1 is not equal to password2*/
+				{
+					document.getElementById("passwordPrompt").style.color="red";
+					document.getElementById("passwordPrompt").innerHTML="<strong>&#10006</strong>";
+					return false;
+				}
+			}
+			function validatePhone()
+			{
+				var pNumber=document.getElementById("phoneNo").value;
+				var res=/^\d{10}$/;
+				if(res.test(pNumber))/*if phone number is in the form of xxx-xxx-xxxx*/
+				{
+					document.getElementById("phoneNoPrompt").style.color="green";
+					document.getElementById("phoneNoPrompt").innerHTML="<strong>&#10004;</strong>";
+					return true;
+				}
+				else/*if phone number is not in the form of xxx-xxx-xxxx*/
+				{
+					document.getElementById("phoneNoPrompt").style.color="red";
+					document.getElementById("phoneNoPrompt").innerHTML="<strong>&#10006;</strong>";
+					return false;
+				}
+			}
+			function formValidation()
+			{
+				if(validateFirstName()&&validateLastName()&&validateEmail()&&validatePhone()&&validateDate())
+				{
+					alert('You have registered successfully.');
+					return true;
+				}
+				else
+				{
+					alert('Fill the form completely.');
+					return false;
+				}
+			}
+			function validateDate(){
+				var dateString=document.getElementById("dob").value;
+				var dateformat1 =/^(0?[1-9]|[1-2][0-9]|3[01])-(0?[1-9]|1[012])-\d{4}$/;
+				var dateformat2 =/^(0?[1-9]|[1-2][0-9]|3[01])[/](0?[1-9]|1[012])[/]\d{4}$/;
+				var flag=0;
+
+				// Match the date format through regular expression
+				if(dateformat1.test(dateString)||dateformat2.test(dateString)){
+					var datepart = dateString.split('-');
+				// Extract the string into month, date and year
+
+					if (datepart.length==1){
+						datepart = dateString.split('/');
+					}
+
+					var day = parseInt(datepart[0]);
+					var month= parseInt(datepart[1]);
+					var year = parseInt(datepart[2]);
+
+					// Create list of days of a month
+					var ListofDays = [31,28,31,30,31,30,31,31,30,31,30,31];
+					if (month==1 || (month>2 && month<=12)){
+						if (day>ListofDays[month-1]){
+							///This check is for Confirming that the date is not out of its range
+								flag=1;
+						}
+					}
+					else if (month==2){
+							var leapYear = false;
+							if ( (!(year % 4) && year % 100) || !(year % 400)) {
+								leapYear = true;
+							}
+							if (((leapYear == false) && (day>=29)) || ((leapYear==true) && (day>29))){
+								flag=1;
+							}
+					}
+					else{
+							flag=1;
+					}
+				}
+				else{
+					  flag=1;
+				}
+				if(flag==1){
+					document.getElementById("datePrompt").style.color="red";
+					document.getElementById("datePrompt").innerHTML="<strong>&#10006;</strong>";
+					return false;
+				}
+				else{
+					document.getElementById("datePrompt").style.color="green";
+					document.getElementById("datePrompt").innerHTML="<strong>&#10004;</strong>";
+					return true;
+				}
+}
+		</script>
+		<style>
+			.body{
+				/* /background-color:#FFEBCD; */
+				background-image: url("data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAwKCxARDg0RFQ8NERENDQ0NDxAQDR0NFxANIh4XFiEeISAYHCYfJCYkJxUVIC4gJCcoKysrFx4wNC8pMyUqKygBDQ0NDxAPFRAQDykZFRkpKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCcnJycoJycnJycnJycnJ//AABEIAKgBLAMBIgACEQEDEQH/xAAaAAEAAwEBAQAAAAAAAAAAAAAAAgMEAQUG/8QAKhABAQABAwMDAwQDAQAAAAAAAAECAxExIUFRBCKBYXHhUmKxwRKh8IL/xAAZAQEAAwEBAAAAAAAAAAAAAAAAAQIDBAX/xAAeEQEBAAIDAQEBAQAAAAAAAAAAAQIRAyExUUFhEv/aAAwDAQACEQMRAD8A+irjtces8UAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB2uFoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAK9TWww5vXxOtrHl6zLfpjNvrVblImS1omtL1/14TxzefKnhqWVErPDOXq+vSlGfT1F8q0q+nQEgAAAAAAAAAAAAAAAAAAAAAAAAAAOZ5Y4zfKyT6sWr6u8YTb915+IrcpPUyWtmpqY4zfK7fTvftGHV9XlemPtnnv8Ahlttu9tt83kZXO1aSFoCiVgDVwJ452NWnqMTstiZW2HJvrJ6cqTHp6jVjkvK2sSASgAAAAAAAAAAAAAAAAAAAAC2Sb27Tvb0jJq+rk6YTe+bx+UXKT0k21ZZSTe2Seax6vq+2E/9X+oyZ55ZXfK2/wAT7Isss7fF5Hcsrld7bb5rgM0gAAALAGrzwACVo09RnEytcOTXV8eljmsjztPU25bMM1pXR/YtCUWQAAAAAAAAAAAAAAAz6vqcMek91+nE+9RbJ6SbaKy6vq8cemPuvnt+WPU1s8+b0/TOkVssuT4tMfqepqZZ33XfxO0+EAZrAAAAAAAALAGrzwAAABZhnYrEr453Fu09RfK8zHOxq09RaV0yzKbjUIzJJIAJAAAAAAAFWrrYYc3e/pnW/hFuhap1fUYYdN/8r4n93sxavqc8uk9s8Tn5qhneT4tMfq7V9Rnn32n6Zx8+VIM7bfVgBAAAAAAAAAAAsAavPAAAAAAHZbHAWxyuN3GrT1GrHJ5crRp6i0rpxymU6bhXjmslWSAJAEdTUxxm+V2/m/ZAkhqauOE91+0nN+GLV9XlemPtnm8/hlt73rfN5Uy5PiZj9adX1WWXTH2z6c357MwMrbfV5NACAAAAAAAAAAAAAABYA1eeAAAAAAAAACZbO4t09Tblswzecljqf49bdpO9TLp0YckvV9epKjlnjjN7ZJ9XnX184wm/7rx8RRc7ld7bb9S8k/Gn+a2avq7xhNv3Xn4jJbbd7bb5vLgyuVvq8mgBAAAAAAAAAAAAAAAAAAAsAavPAAAAAAAAAACwBLLq6Nx92PHfHvPsjhm2KNXQ392PTLvO2X5Uyx/Y6ePm/MnZUmXHPtelnMvLRjkq30kAIAAAAAAAAAAAAAAAAAAWANXngAAAAAAAAAAAAAKtXRmXXjLtf6rLLcbtlNr/ANw3oamnMptfi94rZvxvx8tnV8VY5rIy5Y5YXa8drOKtxyUdPVm4tHJXQAAAAAAAAAAAAAAAAWANXAAAAAAAAAAAAAAAAA5ZLNrN4punceOs/wBgrk148rPEpHdgUdRsbABsbABsbABsbABsbABsbABsbABsbAD/2Q==");
+				background-repeat: no-repeat;
+				background-size: cover;
+				text-align:center;
+				font-size:150%;
+			}
+			#title{
+				color:rgb(255, 104, 116);
+				text-align:center;
+				font-family:verdana;
+				font-size:200%;
+			}
+			.table{
+				width:70%;
+				margin-left:15%;
+				margin-right:15%;
+			}
+			td{
+				padding: 5px;
+				text-align:center;
+			}
+		</style>
+	</head>
+
+	<!--body of the html code-->
+	<body class="body">
+		<h1 id="title"><img style="border-radius:50px;" src=https://www.pngitem.com/pimgs/m/391-3918613_personal-service-platform-person-icon-circle-png-transparent.png alt="face of avatar" width=50 height=50>   REGISTRATION FORM  </h1>
+		<form>
+			<table border=0 class="table"><!--it creates a table with out any border-->
+				<tr>
+					<td class="label_col">First Name:</td>
+					<td class="input_col"><input name="firstName" id="firstName" type="text" onblur="validateFirstName()" required></td><!--required specifies that an input field must be filled out before submitting the form.-->
+					<td class="feedback_col"><span id="firstNamePrompt"></span></td>
+				</tr>
+				<tr>
+					<td class="label_col">Last Name:</td>
+					<td class="input_col"><input name="lastName" id="lastName" type="text" onblur="validateLastName()" required></td>
+					<td class="feedback_col"><span id="lastNamePrompt"></span></td>
+				</tr>
+				<tr>
+					<td class="label_col">Gender:</td>
+					<td class="input_col">
+						<input name="gender" id="gender" type="radio" checked>Male<!--element Male should be pre-selected (checked) when the page loads-->
+						<input name="gender" id="gender" type="radio">Female
+						<input name="gender" id="gender" type="radio">Other
+					</td>
+				</tr>
+				<tr>
+					<td class="label_col">Date Of Birth:</td>
+					<td class="input_col"><input name="dob" id="dob" type="text" placeholder="dd-mm-yyyy" onblur="validateDate()" required></td>
+					<td class="feedback_col"><span id="datePrompt"></span></td>
+				</tr>
+				<tr>
+					<td class="label_col">Email:</td>
+					<td class="input_col"><input name="email" id="email" type="email" onblur="validateEmail()" placeholder="name@gmail.com" required></td>
+					<td class="feedback_col"><span id="emailPrompt"></span></td>
+				</tr>
+				<tr>
+					<td class="label_col">Password:</td>
+					<td class="input_col"><input name="password" id="password1" type="password" required></td>
+				</tr>
+				<tr>
+					<td class="label_col">Confirm Password:</td>
+					<td class="input_col"><input name="password" id="password2" type="password" required onblur="validatePasswordMatch()"></td>
+					<td class="feedback_col"><span id="passwordPrompt"></span></td>
+				</tr>
+				<tr>
+					<td class="label_col">Phone No:</td>
+					<td class="input_col"><input name="phoneNo" id="phoneNo" type="text" placeholder="xxxxxxxxxx" onblur="validatePhone()" required></td>
+					<td class="feedback_col"><span id="phoneNoPrompt"></span></td>
+				</tr>
+			</table>
+			<br><div class="last">
+			<input id="terms" type="checkbox" checked>I accept <u style="color:blue">privacy policy</u> and <u style="color:blue">terms</u><br>
+			<button onclick="formValidation()" style="color:red">Submit</button>
+			</div>
+		</form>
+	</body>
+</html>
